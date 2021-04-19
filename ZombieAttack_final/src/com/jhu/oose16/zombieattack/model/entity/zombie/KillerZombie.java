@@ -16,16 +16,9 @@ import com.jhu.oose16.zombieattack.model.objectstate.LifeState;
  * It will chase a scientist, while the scientist is in the detection region.
  */
 public class KillerZombie extends Zombie {
+	
+	private static StatsStruct stats = new StatsStruct(45, 49, 45, 49, 7, 3, 1, Integer.MAX_VALUE, 5, 3);
 
-	private static final int WIDTH_UP_DOWN = 45;
-	private static final int HEIGHT_UP_DOWN = 49;
-	private static final int WIDTH_LEFT_RIGHT = 45;
-	private static final int HEIGHT_LEFT_RIGHT = 49;
-	private static final int DESTRUCTION_PEROID = 7;
-	private static final int RUNNING_SPEED = 3;
-	private static final int HEALTH_POINT = 1;
-	private static final int ZOMBIE_DAMAGE = Integer.MAX_VALUE;
-	private static final int ZOMBIE_SCORE = 5;
 
 	private static final int RUNNING_SPEED_AFTER_DETECTION = 10;
 
@@ -34,9 +27,9 @@ public class KillerZombie extends Zombie {
 	private boolean blockedByBarrier;
 
 	public KillerZombie() {
-		super(WIDTH_UP_DOWN, HEIGHT_UP_DOWN, WIDTH_LEFT_RIGHT,
-				HEIGHT_LEFT_RIGHT, RUNNING_SPEED, HEALTH_POINT, ZOMBIE_DAMAGE,
-				-1, -1, DESTRUCTION_PEROID);
+		super(stats.WIDTH_UP_DOWN, stats.HEIGHT_UP_DOWN, stats.WIDTH_LEFT_RIGHT,
+				stats.HEIGHT_LEFT_RIGHT, stats.RUNNING_SPEED, stats.HEALTH_POINT, stats.ZOMBIE_DAMAGE,
+				-1, -1, stats.DESTRUCTION_PEROID);
 		openDetectionRegion();
 		blockedByBarrier = false;
 	}
@@ -44,7 +37,7 @@ public class KillerZombie extends Zombie {
 	@Override
 	public void update() {
 		super.update();
-		setSpeed(RUNNING_SPEED);
+		setSpeed(stats.RUNNING_SPEED);
 		if (blockedByBarrier && countToMarkedUpdateCount() > UNDETECTING_COUNT) {
 			blockedByBarrier = false;
 		}
@@ -112,7 +105,7 @@ public class KillerZombie extends Zombie {
 
 	@Override
 	public int score() {
-		return ZOMBIE_SCORE;
+		return stats.ZOMBIE_SCORE;
 	}
 
 }

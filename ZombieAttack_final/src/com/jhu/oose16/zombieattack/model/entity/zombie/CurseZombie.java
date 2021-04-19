@@ -9,21 +9,13 @@ import com.jhu.oose16.zombieattack.model.entity.materials.Goo;
  * When it die, it return into a goo.
  */
 public class CurseZombie extends Zombie {
-
-	private static final int WIDTH_UP_DOWN = 41;
-	private static final int HEIGHT_UP_DOWN = 59;
-	private static final int WIDTH_LEFT_RIGHT = 47;
-	private static final int HEIGHT_LEFT_RIGHT = 57;
-	private static final int DESTRUCTION_PEROID = 19;
-	private static final int RUNNING_SPEED = 3;
-	private static final int HEALTH_POINT = 1;
-	private static final int ZOMBIE_DAMAGE = 1;
-	private static final int ZOMBIE_SCORE = 2;
+	
+	private static StatsStruct stats = new StatsStruct(41, 59, 47, 57, 19, 3, 1, 1, 2, 3);
 
 	public CurseZombie() {
-		super(WIDTH_UP_DOWN, HEIGHT_UP_DOWN, WIDTH_LEFT_RIGHT,
-				HEIGHT_LEFT_RIGHT, RUNNING_SPEED, HEALTH_POINT, ZOMBIE_DAMAGE,
-				-1, -1, DESTRUCTION_PEROID);
+		super(stats.WIDTH_UP_DOWN, stats.HEIGHT_UP_DOWN, stats.WIDTH_LEFT_RIGHT,
+				stats.HEIGHT_LEFT_RIGHT, stats.RUNNING_SPEED, stats.HEALTH_POINT, stats.ZOMBIE_DAMAGE,
+				-1, -1, stats.DESTRUCTION_PEROID);
 	}
 
 	@Override
@@ -47,7 +39,7 @@ public class CurseZombie extends Zombie {
 	
 	@Override
 	public int score() {
-		return ZOMBIE_SCORE;
+		return stats.ZOMBIE_SCORE;
 	}
 	
 }

@@ -3,21 +3,13 @@ package com.jhu.oose16.zombieattack.model.entity.zombie;
 import com.jhu.oose16.zombieattack.model.ExpirableObjectType;
 
 public class GiantZombie extends Zombie {
-
-	private static final int WIDTH_UP_DOWN = 90;
-	private static final int HEIGHT_UP_DOWN = 90;
-	private static final int WIDTH_LEFT_RIGHT = 67;
-	private static final int HEIGHT_LEFT_RIGHT = 90;
-	private static final int DESTRUCTION_PEROID = 10;
-	private static final int RUNNING_SPEED = 2;
-	private static final int HEALTH_POINT = 5;
-	private static final int ZOMBIE_DAMAGE = 2;
-	private static final int ZOMBIE_SCORE = 7;
+	
+	private static StatsStruct stats = new StatsStruct(90, 90, 67, 90, 10, 2, 5, 2, 7, 2);
 
 	public GiantZombie() {
-		super(WIDTH_UP_DOWN, HEIGHT_UP_DOWN, WIDTH_LEFT_RIGHT,
-				HEIGHT_LEFT_RIGHT, RUNNING_SPEED, HEALTH_POINT, ZOMBIE_DAMAGE,
-				-1, -1, DESTRUCTION_PEROID);
+		super(stats.WIDTH_UP_DOWN, stats.HEIGHT_UP_DOWN, stats.WIDTH_LEFT_RIGHT,
+				stats.HEIGHT_LEFT_RIGHT, stats.RUNNING_SPEED, stats.HEALTH_POINT, stats.ZOMBIE_DAMAGE,
+				-1, -1, stats.DESTRUCTION_PEROID);
 	}
 
 	@Override
@@ -28,6 +20,6 @@ public class GiantZombie extends Zombie {
 	
 	@Override
 	public int score() {
-		return ZOMBIE_SCORE;
+		return stats.ZOMBIE_SCORE;
 	}
 }

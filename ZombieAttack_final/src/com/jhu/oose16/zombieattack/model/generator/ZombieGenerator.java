@@ -9,13 +9,14 @@ import com.jhu.oose16.zombieattack.model.entity.zombie.Zombie;
 import com.jhu.oose16.zombieattack.model.factory.EntityFactory;
 import com.jhu.oose16.zombieattack.model.factory.WeightedEntityFactory;
 import com.jhu.oose16.zombieattack.model.factory.ZombieCurseFactory;
-import com.jhu.oose16.zombieattack.model.factory.ZombieFastFactory;
-import com.jhu.oose16.zombieattack.model.factory.ZombieGiantFactory;
-import com.jhu.oose16.zombieattack.model.factory.ZombieKillerFactory;
-import com.jhu.oose16.zombieattack.model.factory.ZombieLeaderFactory;
-import com.jhu.oose16.zombieattack.model.factory.ZombieNormalFactory;
-import com.jhu.oose16.zombieattack.model.factory.ZombieSmartFactory;
-import com.jhu.oose16.zombieattack.model.factory.ZombieStrongerFactory;
+import com.jhu.oose16.zombieattack.model.factory.ZombieFactory;
+//import com.jhu.oose16.zombieattack.model.factory.ZombieFastFactory;
+//import com.jhu.oose16.zombieattack.model.factory.ZombieGiantFactory;
+//import com.jhu.oose16.zombieattack.model.factory.ZombieKillerFactory;
+//import com.jhu.oose16.zombieattack.model.factory.ZombieLeaderFactory;
+//import com.jhu.oose16.zombieattack.model.factory.ZombieNormalFactory;
+//import com.jhu.oose16.zombieattack.model.factory.ZombieSmartFactory;
+//import com.jhu.oose16.zombieattack.model.factory.ZombieStrongerFactory;
 
 /**
  * Generate new zombie by the given probability.
@@ -47,15 +48,8 @@ public class ZombieGenerator implements EntityFactory<Zombie> {
 		}
 		/** The factories for all kinds of zombie */
 		ArrayList<EntityFactory<? extends Zombie>> zombieFactories = new ArrayList<EntityFactory<? extends Zombie>>();
-		zombieFactories.add(new ZombieNormalFactory());
-		zombieFactories.add(new ZombieFastFactory());
-		zombieFactories.add(new ZombieSmartFactory());
-		zombieFactories.add(new ZombieStrongerFactory());
-		zombieFactories.add(new ZombieKillerFactory());
-		zombieFactories.add(new ZombieCurseFactory());
-		zombieFactories.add(new ZombieGiantFactory());
-		zombieFactories.add(new ZombieLeaderFactory());
-
+		zombieFactories.add(new ZombieFactory());
+		
 		List<WeightedEntityFactory<? extends Zombie>> weightedZombieFactories = new ArrayList<WeightedEntityFactory<? extends Zombie>>();
 		for (int i = 0; i < zombieFactories.size(); i++) {
 			weightedZombieFactories.add(new WeightedEntityFactory<Zombie>(

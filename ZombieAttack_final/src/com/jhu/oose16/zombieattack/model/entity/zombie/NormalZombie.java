@@ -12,21 +12,12 @@ import com.jhu.oose16.zombieattack.model.ExpirableObjectType;
  *         Lavanya Sivakumar: lavany92@gmail.com
  */
 public class NormalZombie extends Zombie {
-
-	private static final int WIDTH_UP_DOWN = 33;
-	private static final int HEIGHT_UP_DOWN = 58;
-	private static final int WIDTH_LEFT_RIGHT = 22;
-	private static final int HEIGHT_LEFT_RIGHT = 56;
-	private static final int DESTRUCTION_PEROID = 10;
-	private static final int RUNNING_SPEED = 3;
-	private static final int HEALTH_POINT = 1;
-	private static final int ZOMBIE_DAMAGE = 1;
-	private static final int ZOMBIE_SCORE = 1;
+	private static StatsStruct stats = new StatsStruct(33, 58, 22, 56, 10, 3, 1, 1, 1, 3);
 
 	public NormalZombie() {
-		super(WIDTH_UP_DOWN, HEIGHT_UP_DOWN, WIDTH_LEFT_RIGHT,
-				HEIGHT_LEFT_RIGHT, RUNNING_SPEED, HEALTH_POINT, ZOMBIE_DAMAGE,
-				-1, -1, DESTRUCTION_PEROID);
+		super(stats.WIDTH_UP_DOWN, stats.HEIGHT_UP_DOWN, stats.WIDTH_LEFT_RIGHT,
+				stats.HEIGHT_LEFT_RIGHT, stats.RUNNING_SPEED, stats.HEALTH_POINT, stats.ZOMBIE_DAMAGE,
+				-1, -1, stats.DESTRUCTION_PEROID);
 	}
 
 	@Override
@@ -37,6 +28,6 @@ public class NormalZombie extends Zombie {
 
 	@Override
 	public int score() {
-		return ZOMBIE_SCORE;
+		return stats.ZOMBIE_SCORE;
 	}
 }

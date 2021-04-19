@@ -7,21 +7,13 @@ import com.jhu.oose16.zombieattack.model.ExpirableObjectType;
  * another randomly moving path.
  */
 public class FastZombie extends Zombie {
-
-	private static final int WIDTH_UP_DOWN = 35;
-	private static final int HEIGHT_UP_DOWN = 60;
-	private static final int WIDTH_LEFT_RIGHT = 26;
-	private static final int HEIGHT_LEFT_RIGHT = 60;
-	private static final int DESTRUCTION_PEROID = 10;
-	private static final int RUNNING_SPEED = 6;
-	private static final int HEALTH_POINT = 2;
-	private static final int ZOMBIE_DAMAGE = 1;
-	private static final int ZOMBIE_SCORE = 2;
+	
+	private static StatsStruct stats = new StatsStruct(45, 60, 26, 60, 10, 6, 2, 1, 2, 6);
 
 	public FastZombie() {
-		super(WIDTH_UP_DOWN, HEIGHT_UP_DOWN, WIDTH_LEFT_RIGHT,
-				HEIGHT_LEFT_RIGHT, RUNNING_SPEED, HEALTH_POINT, ZOMBIE_DAMAGE,
-				-1, -1, DESTRUCTION_PEROID);
+		super(stats.WIDTH_UP_DOWN, stats.HEIGHT_UP_DOWN, stats.WIDTH_LEFT_RIGHT,
+				stats.HEIGHT_LEFT_RIGHT, stats.RUNNING_SPEED, stats.HEALTH_POINT, stats.ZOMBIE_DAMAGE,
+				-1, -1, stats.DESTRUCTION_PEROID);
 	}
 
 	@Override
@@ -33,6 +25,6 @@ public class FastZombie extends Zombie {
 
 	@Override
 	public int score() {
-		return ZOMBIE_SCORE;
+		return stats.ZOMBIE_SCORE;
 	}
 }

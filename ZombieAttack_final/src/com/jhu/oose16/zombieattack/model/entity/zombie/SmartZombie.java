@@ -11,24 +11,16 @@ import com.jhu.oose16.zombieattack.model.entity.Entity;
 import com.jhu.oose16.zombieattack.model.entity.Rectangle;
 import com.jhu.oose16.zombieattack.model.entity.boulder.Boulder;
 
+import com.jhu.oose16.zombieattack.model.entity.zombie.StatsStruct;
+
 public class SmartZombie extends Zombie {
-
-	private static final int WIDTH_UP_DOWN = 31;
-	private static final int HEIGHT_UP_DOWN = 60;
-	private static final int WIDTH_LEFT_RIGHT = 23;
-	private static final int HEIGHT_LEFT_RIGHT = 58;
-	private static final int DESTRUCTION_PEROID = 11;
-	private static final int RUNNING_SPEED = 3;
-	private static final int HEALTH_POINT = 2;
-	private static final int ZOMBIE_DAMAGE = 1;
-	private static final int ZOMBIE_SCORE = 5;
-
-	private static final int RUNNING_SPEED_AFTER_DETECTION = 10;
+	
+	private static StatsStruct stats = new StatsStruct(31, 60, 23, 58, 11, 3, 2, 1, 5, 10);
 
 	public SmartZombie() {
-		super(WIDTH_UP_DOWN, HEIGHT_UP_DOWN, WIDTH_LEFT_RIGHT,
-				HEIGHT_LEFT_RIGHT, RUNNING_SPEED, HEALTH_POINT, ZOMBIE_DAMAGE,
-				-1, -1, DESTRUCTION_PEROID);
+		super(stats.WIDTH_UP_DOWN, stats.HEIGHT_UP_DOWN, stats.WIDTH_LEFT_RIGHT,
+				stats.HEIGHT_LEFT_RIGHT, stats.RUNNING_SPEED, stats.HEALTH_POINT, stats.ZOMBIE_DAMAGE,
+				-1, -1, stats.DESTRUCTION_PEROID);
 		openDetectionRegion();
 	}
 
@@ -41,18 +33,18 @@ public class SmartZombie extends Zombie {
 	@Override
 	public void update() {
 		super.update();
-		setSpeed(RUNNING_SPEED);
+		setSpeed(stats.RUNNING_SPEED);
 	}
 
 	@Override
 	protected void detectBoulder(Boulder boulder,
 			DetectionContext detectionContext) {
-		setSpeed(RUNNING_SPEED_AFTER_DETECTION);
+		setSpeed(stats.RUNNING_SPEED_AFTER_DETECTION);
 
 		Vector vector = new Vector(boulder.getCenter(), this.getCenter());
 		Position end = new Position(getCenterX(), getCenterY());
 		end.plus(vector);
-		runningPath = getCenter().linePosition(end, HEIGHT_UP_DOWN);
+		runningPath = getCenter().linePosition(end, stats.HEIGHT_UP_DOWN);
 
 		Position nextPosition = runningPath.get(runningPath.size() - 1);
 
@@ -86,7 +78,7 @@ public class SmartZombie extends Zombie {
 
 	@Override
 	public int score() {
-		return ZOMBIE_SCORE;
+		return stats.ZOMBIE_SCORE;
 	}
 
 }
