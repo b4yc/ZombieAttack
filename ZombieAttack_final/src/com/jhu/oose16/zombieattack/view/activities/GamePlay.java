@@ -53,6 +53,10 @@ public class GamePlay extends Menu<GamePlay.ViewComponentTypes> {
 
 	private SensorEventListenerImpl sensorEventListenerImpl;
 
+	GPCommand gPPause = new GPPause();
+	GPCommand gPMusic = new GPMusic();
+	GPCommand gPActionUp = new GPActionUp();
+
 	/**
 	 * get the broadcast from the pause menu, go to the main menu, resume or
 	 * restart
@@ -190,56 +194,59 @@ public class GamePlay extends Menu<GamePlay.ViewComponentTypes> {
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.GAME_PLAY_PAUSE_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.GAME_PLAY_PAUSE_BUTTON))
-						.buttonDown();
-				if (MainMenu.music_sound_on) {
-					MainMenu.touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				backGround_music.pause();
-				Intent intent = new Intent();
-				intent.setClass(GamePlay.this, PauseMenu.class);
-				startActivity(intent);
-				gameModel.pauseGame();
+			gPPause.execute(viewComponentManager, event);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.GAME_PLAY_PAUSE_BUTTON))
+			// 			.buttonDown();
+			// 	if (MainMenu.music_sound_on) {
+			// 		MainMenu.touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	backGround_music.pause();
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(GamePlay.this, PauseMenu.class);
+			// 	startActivity(intent);
+			// 	gameModel.pauseGame();
 			}
 		}
 
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.GAME_PLAY_MUSIC_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((DoubleViewButton) viewComponentManager
-						.getViewComponent(ViewComponentTypes.GAME_PLAY_MUSIC_BUTTON))
-						.buttonDown();
-				if (MainMenu.music_sound_on) {
-					MainMenu.touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				((DoubleViewButton) viewComponentManager
-						.getViewComponent(ViewComponentTypes.GAME_PLAY_MUSIC_BUTTON))
-						.changeButton();
-				MainMenu.music_sound_on = !MainMenu.music_sound_on;
-				if(!MainMenu.music_sound_on) {
-					backGround_music.pause();
-				}
-				else {
-					backGround_music = MediaPlayer.create(GamePlay.this, R.raw.scare_song);
-					backGround_music.setVolume(100, 100);
-					backGround_music.start();
-				}
-			}
+			gPMusic.execute(viewComponentManager, event);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((DoubleViewButton) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.GAME_PLAY_MUSIC_BUTTON))
+			// 			.buttonDown();
+			// 	if (MainMenu.music_sound_on) {
+			// 		MainMenu.touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	((DoubleViewButton) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.GAME_PLAY_MUSIC_BUTTON))
+			// 			.changeButton();
+			// 	MainMenu.music_sound_on = !MainMenu.music_sound_on;
+			// 	if(!MainMenu.music_sound_on) {
+			// 		backGround_music.pause();
+			// 	}
+			// 	else {
+			// 		backGround_music = MediaPlayer.create(GamePlay.this, R.raw.scare_song);
+			// 		backGround_music.setVolume(100, 100);
+			// 		backGround_music.start();
+			// 	}
+			// }
 		}
 
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.GAME_PLAY_PAUSE_BUTTON))
-					.buttonUp();
+			gPActionUp.execute(viewComponentManager);
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.GAME_PLAY_PAUSE_BUTTON))
+			// 		.buttonUp();
 
-			((DoubleViewButton) viewComponentManager
-					.getViewComponent(ViewComponentTypes.GAME_PLAY_MUSIC_BUTTON))
-					.buttonUp();
+			// ((DoubleViewButton) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.GAME_PLAY_MUSIC_BUTTON))
+			// 		.buttonUp();
 		}
 		viewComponentManager.invalidate();
 		return true;

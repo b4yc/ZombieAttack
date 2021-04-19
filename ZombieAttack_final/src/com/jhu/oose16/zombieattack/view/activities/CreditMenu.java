@@ -11,6 +11,9 @@ import com.jhu.oose16.zombieattack.view.component.Texture;
 public class CreditMenu extends Menu<CreditMenu.ViewComponentTypes> {
 
 	MainMenu mainMenu;
+	CMCommand cMMainMenuActionDown = new CMMainMenuActionDown();
+	CMCommand cMMainMenuActionUp = new CMMainMenuActionUp();
+	CMCommand cMActionUp = new CMActionUp();
 	
 	public static enum ViewComponentTypes {
 		BASIC_BACKGROUND, CREDIT_MENU_BACKGROUND, RETURN_MAIN_MENU_BUTTON
@@ -45,25 +48,28 @@ public class CreditMenu extends Menu<CreditMenu.ViewComponentTypes> {
 				.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
-						.buttonDown();
-				if (MainMenu.music_sound_on) {
-					MainMenu.touchSong.start();
-				}
+				cMMainMenuActionDown.execute(viewComponentManager, mainMenu)
+				// ((Button) viewComponentManager
+				// 		.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
+				// 		.buttonDown();
+				// if (MainMenu.music_sound_on) {
+				// 	MainMenu.touchSong.start();
+				// }
 			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				Intent intent = new Intent();
-				intent.setClass(CreditMenu.this, MainMenu.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				startActivity(intent);
-				finish();
+				cMMainMenuActionUp.execute(CreditMenu.this, MainMenu.class);
+				// Intent intent = new Intent();
+				// intent.setClass(CreditMenu.this, MainMenu.class);
+				// intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				// startActivity(intent);
+				// finish();
 			}
 		}
 
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
-					.buttonUp();
+			cMActionUp.execute(viewComponentManager);
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
+			// 		.buttonUp();
 		}
 		viewComponentManager.invalidate();
 		return true;

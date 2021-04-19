@@ -11,6 +11,8 @@ import com.jhu.oose16.zombieattack.view.component.Texture;
 public class HighScoresMenu extends Menu<HighScoresMenu.ViewComponentTypes> {
 
 	MainMenu mainMenu;
+	HSMCommand hSMMainMenu = new HSMMainMenu();
+	HSMCommand hSMActionUp = new HSMActionUp();
 	
 	public static enum ViewComponentTypes {
 		BASIC_BACKGROUND, HIGH_SCORES_MENU_BACKGROUND, RETURN_MAIN_MENU_BUTTON
@@ -44,26 +46,28 @@ public class HighScoresMenu extends Menu<HighScoresMenu.ViewComponentTypes> {
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
-						.buttonDown();
-				if (MainMenu.music_sound_on) {
-					MainMenu.touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				Intent intent = new Intent();
-				intent.setClass(HighScoresMenu.this, MainMenu.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				startActivity(intent);
-				finish();
-			}
+			hSMMainMenu.execute(viewComponentManager, event);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
+			// 			.buttonDown();
+			// 	if (MainMenu.music_sound_on) {
+			// 		MainMenu.touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(HighScoresMenu.this, MainMenu.class);
+			// 	intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			// 	startActivity(intent);
+			// 	finish();
+			// }
 		}
 
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
-					.buttonUp();
+			hSMActionUp.execute();
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
+			// 		.buttonUp();
 		}
 		viewComponentManager.invalidate();
 		return true;

@@ -18,6 +18,13 @@ public class MainMenu extends Menu<MainMenu.ViewComponentTypes> {
 	public static MediaPlayer touchSong;
 	public static boolean music_sound_on = true;
 
+	MMCommand mMPlay = new MMPlay();
+	MMCommand mMTutorial = new MMTutorial();
+	MMCommand mMInfo = new MMInfo();
+	MMCommand mMHighScores = new MMHighScores();
+	MMCommand mMMusic = new MMMusic();
+	MMCommand mMActionUp = new MMActionUp();
+
 	public static enum ViewComponentTypes {
 		MAIN_MENU_TUTORIAL_BUTTON, MAIN_MENU_PLAY_BUTTON, MAIN_MENU_INFO_BUTTON, MAIN_MENU_MUSIC_BUTTON, MAIN_MENU_HIGH_SCORES_BUTTON, MAIN_MENU_BACKGROUND
 	};
@@ -66,103 +73,109 @@ public class MainMenu extends Menu<MainMenu.ViewComponentTypes> {
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.MAIN_MENU_PLAY_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.MAIN_MENU_PLAY_BUTTON))
-						.buttonDown();
-				if (music_sound_on) {
-					touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				Intent intent = new Intent();
-				intent.setClass(MainMenu.this, GamePlay.class);
-				startActivity(intent);
-			}
+			mMPlay.execute(viewComponentManager, event, MainMenu, GamePlay);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.MAIN_MENU_PLAY_BUTTON))
+			// 			.buttonDown();
+			// 	if (music_sound_on) {
+			// 		touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(MainMenu.this, GamePlay.class);
+			// 	startActivity(intent);
+			// }
 		}
 
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.MAIN_MENU_TUTORIAL_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.MAIN_MENU_TUTORIAL_BUTTON))
-						.buttonDown();
-				if (music_sound_on) {
-					touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				Intent intent = new Intent();
-				intent.setClass(MainMenu.this, TutorialMenu.class);
-				startActivity(intent);
-			}
+			mMTutorial.execute(viewComponentManager, event, MainMenu, GamePlay);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.MAIN_MENU_TUTORIAL_BUTTON))
+			// 			.buttonDown();
+			// 	if (music_sound_on) {
+			// 		touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(MainMenu.this, TutorialMenu.class);
+			// 	startActivity(intent);
+			// }
 		}
 
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.MAIN_MENU_INFO_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.MAIN_MENU_INFO_BUTTON))
-						.buttonDown();
-				if (music_sound_on) {
-					touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				Intent intent = new Intent();
-				intent.setClass(MainMenu.this, CreditMenu.class);
-				startActivity(intent);
-			}
+			mMInfo.execute(viewComponentManager, event, MainMenu, GamePlay)
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.MAIN_MENU_INFO_BUTTON))
+			// 			.buttonDown();
+			// 	if (music_sound_on) {
+			// 		touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(MainMenu.this, CreditMenu.class);
+			// 	startActivity(intent);
+			// }
 		}
 
 		if (viewComponentManager
 				.getViewComponent(
 						ViewComponentTypes.MAIN_MENU_HIGH_SCORES_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.MAIN_MENU_HIGH_SCORES_BUTTON))
-						.buttonDown();
-				if (music_sound_on) {
-					touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				Intent intent = new Intent();
-				intent.setClass(MainMenu.this, HighScoresMenu.class);
-				startActivity(intent);
-			}
+			mMHighScores.execute();
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.MAIN_MENU_HIGH_SCORES_BUTTON))
+			// 			.buttonDown();
+			// 	if (music_sound_on) {
+			// 		touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(MainMenu.this, HighScoresMenu.class);
+			// 	startActivity(intent);
+			// }
 		}
 
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.MAIN_MENU_MUSIC_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((DoubleViewButton) viewComponentManager
-						.getViewComponent(ViewComponentTypes.MAIN_MENU_MUSIC_BUTTON))
-						.buttonDown();
-				music_sound_on = !music_sound_on;
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				((DoubleViewButton) viewComponentManager
-						.getViewComponent(ViewComponentTypes.MAIN_MENU_MUSIC_BUTTON))
-						.changeButton();
-			}
+			mMMusic.execute(viewComponentManager, event);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((DoubleViewButton) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.MAIN_MENU_MUSIC_BUTTON))
+			// 			.buttonDown();
+			// 	music_sound_on = !music_sound_on;
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	((DoubleViewButton) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.MAIN_MENU_MUSIC_BUTTON))
+			// 			.changeButton();
+			// }
 		}
 
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.MAIN_MENU_HIGH_SCORES_BUTTON))
-					.buttonUp();
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.MAIN_MENU_INFO_BUTTON))
-					.buttonUp();
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.MAIN_MENU_PLAY_BUTTON))
-					.buttonUp();
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.MAIN_MENU_TUTORIAL_BUTTON))
-					.buttonUp();
-			((DoubleViewButton) viewComponentManager
-					.getViewComponent(ViewComponentTypes.MAIN_MENU_MUSIC_BUTTON))
-					.buttonUp();
+			mMActionUp.execute(viewComponentManager);
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.MAIN_MENU_HIGH_SCORES_BUTTON))
+			// 		.buttonUp();
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.MAIN_MENU_INFO_BUTTON))
+			// 		.buttonUp();
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.MAIN_MENU_PLAY_BUTTON))
+			// 		.buttonUp();
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.MAIN_MENU_TUTORIAL_BUTTON))
+			// 		.buttonUp();
+			// ((DoubleViewButton) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.MAIN_MENU_MUSIC_BUTTON))
+			// 		.buttonUp();
 		}
 		viewComponentManager.invalidate();
 		return true;

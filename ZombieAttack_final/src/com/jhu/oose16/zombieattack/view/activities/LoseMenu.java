@@ -11,6 +11,10 @@ import com.jhu.oose16.zombieattack.view.component.Texture;
 
 public class LoseMenu extends Menu<LoseMenu.ViewComponentTypes> {
 
+	LMCommand lMActionUp = new LMActionUp();
+	LMCommand lMRetry = new LMRetry();
+	LMCommand lMMainMenu = new LMMainMenu();
+
 	public static enum ViewComponentTypes {
 		LOSE_MENU_BACKGROUND, RETURN_MAIN_MENU_BUTTON, RETRY_BUTTON
 	};
@@ -41,56 +45,60 @@ public class LoseMenu extends Menu<LoseMenu.ViewComponentTypes> {
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.RETRY_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.RETRY_BUTTON))
-						.buttonDown();
-				if (MainMenu.music_sound_on) {
-					MainMenu.touchSong.start();
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				sendBroadcast(new Intent("retryGame"));
 
-				Intent intent = new Intent();
-				intent.setClass(LoseMenu.this, GamePlay.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				startActivity(intent);
+			lMRetry.execute(viewComponentManager, event);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.RETRY_BUTTON))
+			// 			.buttonDown();
+			// 	if (MainMenu.music_sound_on) {
+			// 		MainMenu.touchSong.start();
+			// 	}
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	sendBroadcast(new Intent("retryGame"));
+
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(LoseMenu.this, GamePlay.class);
+			// 	intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			// 	startActivity(intent);
 				
-				GamePlay.backGround_music = MediaPlayer.create(LoseMenu.this, R.raw.scare_song);
-				GamePlay.backGround_music.setVolume(100, 100);
-				GamePlay.backGround_music.start();
+			// 	GamePlay.backGround_music = MediaPlayer.create(LoseMenu.this, R.raw.scare_song);
+			// 	GamePlay.backGround_music.setVolume(100, 100);
+			// 	GamePlay.backGround_music.start();
 				
-				finish();
-			}
+			// 	finish();
+			// }
 		}
 
 		if (viewComponentManager
 				.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON)
 				.getViewRect().isInside(touchPoint)) {
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				((Button) viewComponentManager
-						.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
-						.buttonDown();
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				sendBroadcast(new Intent("finishGamePlay"));
+			lMMainMenu.execute(viewComponentManager, event);
+			// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			// 	((Button) viewComponentManager
+			// 			.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
+			// 			.buttonDown();
+			// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+			// 	sendBroadcast(new Intent("finishGamePlay"));
 
-				Intent intent = new Intent();
-				intent.setClass(LoseMenu.this, MainMenu.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				startActivity(intent);
+			// 	Intent intent = new Intent();
+			// 	intent.setClass(LoseMenu.this, MainMenu.class);
+			// 	intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			// 	startActivity(intent);
 
-				finish();
-			}
+			// 	finish();
+			// }
 		}
 
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.RETRY_BUTTON))
-					.buttonUp();
+			lMActionUp.execute(viewComponentManager);
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.RETRY_BUTTON))
+			// 		.buttonUp();
 
-			((Button) viewComponentManager
-					.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
-					.buttonUp();
+			// ((Button) viewComponentManager
+			// 		.getViewComponent(ViewComponentTypes.RETURN_MAIN_MENU_BUTTON))
+			// 		.buttonUp();
 		}
 		viewComponentManager.invalidate();
 		return true;
